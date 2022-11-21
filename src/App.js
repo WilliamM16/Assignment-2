@@ -30,6 +30,7 @@ const cardsArray = [
   }
 ];
 
+//shuffle array to randomly generate card placement
 function shuffleDeck(array) {
   const length = array.length;
   for (let i = length; i > 0; i--) {
@@ -45,6 +46,7 @@ function App() {
   const [cards, setCards] = useState(
     shuffleDeck.bind(null, cardsArray.concat(cardsArray))
   );
+  
 
 
   return (

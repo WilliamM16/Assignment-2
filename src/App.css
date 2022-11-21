@@ -4,11 +4,15 @@
 }
 
 .App .container {
+  padding: 12px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr);
   justify-items: center;
   align-items: stretch;
   gap: 1rem;
-  
+  margin: 0 auto;
+  width: 720px;
+  height: 720px;
+  max-width: 720px;
 }
