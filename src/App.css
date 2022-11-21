@@ -12,7 +12,8 @@
   align-items: stretch;
   gap: 1rem;
   margin: 0 auto;
-  width: 720px;
-  height: 720px;
-  max-width: 720px;
+  width: 480px;
+  height: 480px;
+  max-width: 480px;
+  background-color: white;
 }

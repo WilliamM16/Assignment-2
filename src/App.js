@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Card from "./Card";
 import './App.css';
 
@@ -46,7 +46,61 @@ function App() {
   const [cards, setCards] = useState(
     shuffleDeck.bind(null, cardsArray.concat(cardsArray))
   );
+  const [openCards, setOpenCards] = useState([]);
+  const [clearedCards, setClearedCards] = useState({});
+  const [disableCards, setDisableCards] = useState(false);
+  const timeout = useRef(null);
+
+  const disable = () => {
+    setDisableCards(true);
+  };
+  const enable = () => {
+    setDisableCards(false);
+  };
   
+  //checks if picked cards matches
+  const checkMatch = () => {
+    const [first, second] = openCards;
+    enable();
+    if (cards[first].type === cards[second].type) {
+      setClearedCards((prev) => ({ ...prev, [cards[first].type]: true }));
+      setOpenCards([]);
+      return;
+    }
+    // card will flip back after x amount
+    timeout.current = setTimeout(() => {
+      setOpenCards([]);
+    }, 1000);
+  };
+
+  const handleCardClick = (index) => {
+    if (openCards.length === 1) {
+      setOpenCards((prev) => [...prev, index]);
+      disable();
+    } else {
+      clearTimeout(timeout.current);
+      setOpenCards([index]);
+    }
+  };
+
+  //delay after picking two cards to see if they match, user cannot click other cards
+  useEffect(() => {
+    let timeout = null;
+    if (openCards.length === 2) {
+      timeout = setTimeout(checkMatch, 1000);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [openCards]);
+
+  const checkFlipped = (index) => {
+    return openCards.includes(index);
+  };
+
+  const checkInactive = (card) => {
+    return Boolean(clearedCards[card.type]);
+  };
 
 
   return (
@@ -61,6 +115,10 @@ function App() {
               key={index}
               card={card}
               index={index}
+              disabled={disableCards}
+              inactive={checkInactive(card)}
+              flipped={checkFlipped(index)}
+              onClick={handleCardClick}
             />
           );
         })}
