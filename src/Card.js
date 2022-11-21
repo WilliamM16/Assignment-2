@@ -1,11 +1,12 @@
-import './Card.css';
 import water from "./images/water.jpg";
+import classnames from "classnames";
+import './Card.css';
 
-const Card = ({ card, index, }) => {
-
-
+const Card = ({ card, index}) => {
     return (
-        <div>
+        <div
+          className={classnames("card", {})}
+        >
           <div className="cardBack">
             <img src={water} alt="water" />
           </div>
