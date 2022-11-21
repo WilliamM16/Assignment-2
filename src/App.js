@@ -102,11 +102,20 @@ function App() {
     return Boolean(clearedCards[card.type]);
   };
 
+  const NewGame = () => {
+    setClearedCards({});
+    setOpenCards([]);
+    setDisableCards(false);
+    // reshuffle decks
+    setCards(shuffleDeck(cardsArray.concat(cardsArray)));
+  };
+
 
   return (
     <div className="App">
       <header>
         <div>Memory Game</div>
+        <div><button onClick={NewGame}> New Game</button></div>
       </header>
       <div className="container">
         {cards.map((card, index) => {
