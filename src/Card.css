@@ -3,8 +3,26 @@
     height: 100%;
     border-radius: 4px;
     box-shadow: 2px 2px 4px 4px black;
+    transform-style: preserve-3d;
   }
   .card img {
     width: 95%;
     height: 95%;
   }
+
+  .card .cardBack {
+    backface-visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .card .cardBack {
+    transform: rotateY(180deg);
+  }
+  .card.flipped {
+    transform: rotateY(180deg);
+  }
+  .card.inactive {
+    opacity: 0;
+  }
+  
